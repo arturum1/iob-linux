@@ -39,13 +39,14 @@ $(LINUX_DIR):
 	@wget https://cdn.kernel.org/pub/linux/kernel/v5.x/$(LINUX_NAME).tar.xz && \
 		tar -xf $(LINUX_NAME).tar.xz -C $(OS_SUBMODULES_DIR)
 
-## IOb-SoC Device Tree target
+## Device Tree target
 DTS_FILE ?= $(OS_SOFTWARE_DIR)/iob_soc.dts
+SYSTEM_NAME := $(basename $(notdir $(DTS_FILE)))
 build-dts: $(OS_BUILD_DIR)
-	cp $(DTS_FILE) $(OS_BUILD_DIR)/iob_soc_tmp.dts
-	$(LINUX_OS_DIR)/scripts/replace_macros.py $(OS_BUILD_DIR)/iob_soc_tmp.dts $(MACROS_FILE)
-	dtc -O dtb -o $(OS_BUILD_DIR)/iob_soc.dtb $(OS_BUILD_DIR)/iob_soc_tmp.dts
-	rm $(OS_BUILD_DIR)/iob_soc_tmp.dts
+	cp $(DTS_FILE) $(OS_BUILD_DIR)/$(SYSTEM_NAME)_tmp.dts
+	$(LINUX_OS_DIR)/scripts/replace_macros.py $(OS_BUILD_DIR)/$(SYSTEM_NAME)_tmp.dts $(MACROS_FILE)
+	dtc -O dtb -o $(OS_BUILD_DIR)/$(SYSTEM_NAME).dtb $(OS_BUILD_DIR)/$(SYSTEM_NAME)_tmp.dts
+	rm $(OS_BUILD_DIR)/$(SYSTEM_NAME)_tmp.dts
 
 ## Buildroot Makefile Variables and Targets
 BUILDROOT_VERSION=buildroot-2022.02.10
