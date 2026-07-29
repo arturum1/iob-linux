@@ -5,7 +5,8 @@ pkgs.mkShell {
     bash
     gnumake
     dtc
-    (callPackage ./scripts/riscv-gnu-toolchain.nix { })
+    #(callPackage ./scripts/riscv-gnu-toolchain.nix { })
+    pkgsCross.riscv64.buildPackages.gcc # linux: riscv64-unknown-linux-gnu-*
     # Linux kernel build packages
     libyaml
     ncurses

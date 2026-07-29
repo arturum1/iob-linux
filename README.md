@@ -1,9 +1,9 @@
 # iob-linux
-This repository is a centralized resource containing essential tools for building a Linux Operating System tailored for the [IOb-SoC-OpenCryptoLinux](https://github.com/IObundle/iob-soc-opencryptolinux) platform.
+This repository is a centralized resource containing essential tools for building a Linux Operating System tailored for the [SoCLinux](https://github.com/IObundle/soc-linux) platform.
 
 The Operating System comprises four key files: the OpenSBI binary file (`fw_jump.bin`), the device tree blob file (`iob_soc.dtb`), the Linux kernel Image file, and the compressed root file system file. Pre-built versions of these files are included in this repository under the [`software/OS_build`](software/OS_build) directory. Additionally, a pre-built version of the Linux kernel for QEMU emulation is available under the same directory.
 
-To recompile these files, utilize the provided Makefile commands detailed in the [Makefile](#makefile-targets) sections. For information on the necessary system requirements and development environment setup to compile all the essential files for running the Linux Operating System on [IOb-SoC-OpenCryptoLinux](https://github.com/IObundle/iob-soc-opencryptolinux), refer to the [development environment](#development-environment) section in this README.md.
+To recompile these files, utilize the provided Makefile commands detailed in the [Makefile](#makefile-targets) sections. For information on the necessary system requirements and development environment setup to compile all the essential files for running the Linux Operating System on [SoCLinux](https://github.com/IObundle/soc-linux), refer to the [development environment](#development-environment) section in this README.md.
 
 ## Makefile Targets
 ### `build-OS`

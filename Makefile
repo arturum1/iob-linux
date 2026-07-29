@@ -21,7 +21,7 @@ build-opensbi: clean-opensbi $(OS_BUILD_DIR)
 	rm -r $(OS_SUBMODULES_DIR)/OpenSBI/platform/$(OPENSBI_PLATFORM)/
 
 ## Linux Kernel Makefile Variables and Targets
-LINUX_VERSION?=5.15.98
+LINUX_VERSION?=7.0.6
 LINUX_NAME=linux-$(LINUX_VERSION)
 LINUX_DIR=$(OS_SUBMODULES_DIR)/$(LINUX_NAME)
 LINUX_IMAGE=$(LINUX_DIR)/arch/riscv/boot/Image
@@ -36,7 +36,7 @@ $(LINUX_IMAGE): $(LINUX_DIR)
 		$(MAKE) ARCH=riscv CROSS_COMPILE=riscv64-unknown-linux-gnu- -j`nproc`
 
 $(LINUX_DIR):
-	@wget https://cdn.kernel.org/pub/linux/kernel/v5.x/$(LINUX_NAME).tar.xz && \
+	@wget https://cdn.kernel.org/pub/linux/kernel/v7.x/$(LINUX_NAME).tar.xz && \
 		tar -xf $(LINUX_NAME).tar.xz -C $(OS_SUBMODULES_DIR)
 
 ## Device Tree target
@@ -52,13 +52,13 @@ build-dts: $(OS_BUILD_DIR)
 	rm $(OS_BUILD_DIR)/$(SYSTEM_NAME)_tmp.dts
 
 ## Buildroot Makefile Variables and Targets
-BUILDROOT_VERSION=buildroot-2025.08.1
+BUILDROOT_VERSION=buildroot-2026.02.1
 BUILDROOT_DIR=$(OS_SUBMODULES_DIR)/$(BUILDROOT_VERSION)
 
 build-buildroot: $(OS_BUILD_DIR) $(BUILDROOT_DIR)
 	$(MAKE) -C $(BUILDROOT_DIR) BR2_EXTERNAL=$(OS_SOFTWARE_DIR)/buildroot iob_soc_defconfig
 	# PATCH: Apply patch for buildroot-2025.08.1 micropython: https://github.com/buildroot/buildroot/commit/ab906018c98e5f0838b023fa886c6c52a1cc5cf6
-	-cd $(BUILDROOT_DIR) && curl -L https://github.com/buildroot/buildroot/commit/ab906018c98e5f0838b023fa886c6c52a1cc5cf6.patch | patch -p1 -N
+	#-cd $(BUILDROOT_DIR) && curl -L https://github.com/buildroot/buildroot/commit/ab906018c98e5f0838b023fa886c6c52a1cc5cf6.patch | patch -p1 -N
 	$(MAKE) -C $(BUILDROOT_DIR) -j`nproc`
 	cp $(BUILDROOT_DIR)/output/images/rootfs.cpio.gz $(OS_BUILD_DIR)
 
